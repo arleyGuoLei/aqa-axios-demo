@@ -1,0 +1,45 @@
+<template>
+  <div class="demo-page">
+    <input class="btn" type="button" value="简单请求(GET)" onclick="fetchSimple" />
+  </div>
+</template>
+
+<script>
+import request from './../rq.js'
+
+export default {
+  private: {
+  },
+  fetchSimple(){
+    request({
+      url: 'user/info',
+      params: {
+        name: 'arley',
+        age: 18
+      },
+      successCode: 200
+    }).then(res => {
+      console.log(res)
+    }).catch(e => {
+      console.error(e)
+    })
+  }
+}
+</script>
+
+<style>
+  .demo-page {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .btn {
+    width: 550px;
+    height: 86px;
+    margin-top: 75px;
+    border-radius: 43px;
+    background-color: #09ba07;
+    font-size: 30px;
+    color: #ffffff;
+  }
+</style>
