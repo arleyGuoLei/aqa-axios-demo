@@ -7,7 +7,7 @@
   "description": "",
   "scripts": {
     "build": "hap build",
-    "release": "hap release",
+    "release": "hap release \"--debug\"",
     "server": "hap server",
     "watch": "hap watch",
     "start": "npm run server & npm run watch"

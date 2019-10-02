@@ -1,6 +1,8 @@
 <template>
   <div class="demo-page">
     <input class="btn" type="button" value="简单请求(GET)" onclick="fetchSimple" />
+    <input class="btn" type="button" value="401重试(GET)" onclick="fetch401" />
+    <input class="btn" type="button" value="求和" onclick="getSum" />
   </div>
 </template>
 
@@ -11,13 +13,35 @@ export default {
   private: {
   },
   fetchSimple(){
+
     request({
       url: 'user/info',
+      debug: true,
+      timeout: 2000,
       params: {
         name: 'arley',
         age: 18
       },
       successCode: 200
+    }).then(res => {
+      console.log(res)
+    }).catch(e => {
+      console.error(e)
+    })
+
+  },
+
+  fetch401(){
+    request({
+      url: 'user/401',
+      params: {
+        name: 'arley',
+        age: 18
+      },
+      debug: false,
+      retry: 4,
+      successCode: 200,
+      timeout: 8000,
     }).then(res => {
       console.log(res)
     }).catch(e => {

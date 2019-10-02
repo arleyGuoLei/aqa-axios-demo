@@ -1,12 +1,17 @@
-import Service from 'aqa-request'
+import Service from 'aqa-fetch'
 
 const service = new Service({
   baseUrl: 'http://mock.be.mi.com/mock/1066/',
-  timeout: 8000,
+  timeout: 3000,
   withDuration: true,
   debug: true,
+  retry: 5,
   retryCondition: res => {
-
+    const { code } = res
+    if(code === 401){
+      return true
+    }
+    return false
   }
 })
 
@@ -24,6 +29,11 @@ service.requestHook(config => {
 service.requestHook(config => {
   config.header.test += '3'
   return config
+})
+ 
+service.responseHook(response => {
+  const { code, data, duration, config, headers } = response
+  return response
 })
 
 export default config => {
